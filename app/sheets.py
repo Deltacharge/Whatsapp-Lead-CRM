@@ -1,4 +1,5 @@
 import os
+import json
 import logging
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
@@ -26,10 +27,23 @@ COLUMNS = [
 
 
 def _get_sheets_service():
-    service_account_file = os.getenv("GOOGLE_SERVICE_ACCOUNT_FILE", "config/service_account.json")
-    creds = service_account.Credentials.from_service_account_file(
-        service_account_file, scopes=SCOPES
-    )
+    """
+    Builds an authenticated Google Sheets service.
+
+    Priority:
+      1. GOOGLE_SERVICE_ACCOUNT_JSON  — raw JSON string (set this on Railway / any cloud host)
+      2. GOOGLE_SERVICE_ACCOUNT_FILE  — local file path (used during local dev)
+    """
+    sa_json = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON")
+    if sa_json:
+        # Cloud / Railway path: parse the JSON string directly
+        info = json.loads(sa_json)
+        creds = service_account.Credentials.from_service_account_info(info, scopes=SCOPES)
+    else:
+        # Local dev path: read from the file
+        sa_file = os.getenv("GOOGLE_SERVICE_ACCOUNT_FILE", "config/service_account.json")
+        creds = service_account.Credentials.from_service_account_file(sa_file, scopes=SCOPES)
+
     return build("sheets", "v4", credentials=creds)
 
 
