@@ -2,7 +2,7 @@
 
 A lightweight Python service that turns WhatsApp Business messages into structured CRM leads — automatically parsed by Gemini AI and saved to Google Sheets in real time.
 
-**Live demo:** [your-railway-url.up.railway.app](https://your-url.up.railway.app)  
+**Live demo:** [https://whatsapp-lead-crm-production.up.railway.app/dashboard](https://whatsapp-lead-crm-production.up.railway.app/dashboard)  
 **Built by:** Jatin | B.Tech CSE 2027
 
 ---
@@ -48,8 +48,8 @@ Auto-reply sent back to the user via WhatsApp
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/yourusername/whatsapp-crm.git
-cd whatsapp-crm
+git clone https://github.com/yourusername/Whatsapp-Lead-CRM.git
+cd Whatsapp-Lead-CRM
 pip install -r requirements.txt
 ```
 
